@@ -1,0 +1,173 @@
+#ERICK DIAS DE OLIVEIRA
+#TIA 31733727
+def bases():
+    a='a'
+    b='b'
+    w=-1
+    res=0
+    while a!='binario' and a!='decimal' and a!='hexadecimal' and a!='octal':
+        a=str(input("Qual base vai converter? [binario,decimal,hexadecimal,octal]: "))
+    while b!='binario' and b!='decimal' and b!='hexadecimal' and b!='octal' or b==a:
+        if b==a:
+            print("Nao se pode converter para a mesma base!!!")
+        b=str(input("Converter para qual base(não pode ser para a mesma base)? [binario,decimal,hexadecimal,octal]: "))
+    w=str(input("Digite o valor da base"+"-"+a+""+":"))
+    if a=='dei' and b=='binario':
+        res=decimal_binario(w)
+    elif a=='decimal' and b=='hexadecimal':
+        res=decimal_hexadecimal(w)
+    elif a=='decimal' and b=='octal':
+        res=decimal_octal(w)
+    elif a=='binario' and b=='decimal':
+        res=binario_decimal(w)
+    elif a=='binario' and b=='hexadecimal':
+        res=binario_hexadecimal(w)
+    elif a=='binario' and b=='octal':
+        res=binario_octal(w)
+    elif a=='hexadecimal' and b=='decimal':
+        res=hexadecimal_decimal(w)
+    elif a=='hexadecimal' and b=='binario':
+        res=hexadecimal_binario(w)
+    elif a=='hexadecimal' and b=='octal':
+        res=hexadecimal_octal(w)
+    elif a=='octal' and b=='decimal':
+        res=octal_decimal(w)
+    elif a=='octal' and b=='binario':
+        res=octal_binario(w)
+    else:
+        res=octal_hexadecimal(w)
+    return res
+
+def decimal_binario(n):
+    n=int(n)
+    binario = ""
+    while(True):
+        binario = binario + str(n%2)
+        n = n//2
+        if n == 0:
+            break
+    binario = binario[::-1]
+    binario = int(binario)
+    return binario
+
+def decimal_octal(n):
+    n=int(n)
+    octal = ""
+    while(True):
+        octal = octal + str(n%8)
+        n = n//8
+        if n == 0:
+            break
+    octal = octal[::-1]
+    octal = int(octal)
+    return octal
+
+def decimal_hexadecimal(n):
+    n=int(n)
+    hexadecimal_str = ''
+    digitos = "0123456789ABCDEF"
+    if n == 0:
+       return '0'
+    while n!= 0:
+        hexadecimal_str += digitos[n%16]
+        n = n // 16
+    hexa=hexadecimal_str[::-1]
+    return hexa
+
+def binario_decimal(n):
+    n=int(n)
+    decimal = 0
+    n = str(n)
+    n = n[::-1]
+    tam = len(n)
+    for i in range(tam):
+        if n[i] == "1":
+            decimal = decimal + 2**i
+    return decimal
+
+def binario_octal(n):
+    n=int(n)
+    decimal = 0
+    n = str(n)
+    n = n[::-1]
+    tam = len(n)
+    for i in range(tam):
+        if n[i] == "1":
+            decimal = decimal + 2**i
+    return dec_octal(decimal)
+
+def binario_hexadecimal(n):
+    decimal = 0
+    n = str(n)
+    n = n[::-1]
+    tam = len(n)
+    for i in range(tam):
+        if n[i] == "1":
+            decimal = decimal + 2**i
+    return dec_hexadecimal(decimal)
+
+def hexadecimal_decimal(n):
+    digitos = ("0123456789ABCDEF")
+    if not all([var in digitos for var in n.upper()]):
+        print ("Invalido")
+        return None
+    decimal=sum([digitos.find(var) * 16 ** i for i, var in enumerate(reversed(n.upper()))])
+    return decimal
+def hexadecimal_binario(n):
+    digitos = ("0123456789ABCDEF")
+    if not all([var in digitos for var in n.upper()]):
+        print ("Invalido")
+        return None
+    decimal=sum([digitos.find(var) * 16 ** i for i, var in enumerate(reversed(n.upper()))])
+    return dec_bin(decimal)
+
+def hexadecimal_octal(n):
+    digitos = ("0123456789ABCDEF")
+    if not all([var in digitos for var in n.upper()]):
+        print ("Invalido")
+        return None
+    decimal=sum([digitos.find(var) * 16 ** i for i, var in enumerate(reversed(n.upper()))])
+    return dec_octal(decimal)
+
+def octal_decimal(n):
+    oct=[]
+    decimal = 0
+    n = str(n)
+    n = n[::-1]
+    for j in n:
+        oct.append(int (j))
+    tam = len(n)
+    n=int(n)
+    for i in range(tam):
+        decimal = decimal + ((8**i)*oct[i])
+    return decimal
+
+def octal_binario(n):
+    oct=[]
+    decimal = 0
+    n = str(n)
+    n = n[::-1]
+    for j in n:
+        oct.append(int (j))
+    tam = len(n)
+    n=int(n)
+    for i in range(tam):
+        decimal = decimal + ((8**i)*oct[i])
+    return dec_binario(decimal)
+
+def octal_hexadecimal(n):
+    oct=[]
+    decimal = 0
+    n = str(n)
+    n = n[::-1]
+    for j in n:
+        oct.append(int (j))
+    tam = len(n)
+    n=int(n)
+    for i in range(tam):
+        decimal = decimal + ((8**i)*oct[i])
+    return decimal_hexadecimal(decimal)
+
+def Main():
+    print("O valor é:",bases())
+Main() 
